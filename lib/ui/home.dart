@@ -13,23 +13,45 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   Timer? _timer;
-  int _start = 25;
+  int _start = 60;
+  bool isTimerStarted = false;
+  int minutesHand = 25;
   double counter = 0.0;
   void startTimer() {
     const oneSec = const Duration(seconds: 1);
     _timer = Timer.periodic(
       oneSec,
       (Timer timer) {
-        if (_start == 0) {
-          setState(() {
-            timer.cancel();
-          });
-        } else {
-          setState(() {
-            _start--;
-            counter += 0.01;
-          });
-        }
+        do {
+          if (_start == 0) {
+            setState(() {
+              timer.cancel();
+            });
+          } else {
+            setState(() {
+              _start--;
+              counter += 0.01;
+            });
+          }
+        } while (minutesHand != 0);
+        // while (minutesHand != 0) {
+        //   setState(() {
+        //     _start--;
+        //     counter += 0.01;
+        //   });
+        // }
+        // if (_start == 0) {
+        //   setState(() {
+        //     timer.cancel();
+        //   });
+
+        // } else {
+        //   setState(() {
+        //     _start--;
+        //     counter += 0.01;
+        //   });
+
+        // }
       },
     );
   }
@@ -70,7 +92,13 @@ class _HomeState extends State<Home> {
                 radius: 120.0,
                 lineWidth: 5.0,
                 percent: counter,
-                center: Text("$_start"),
+                center: Text(
+                  "$minutesHand:$_start",
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText2!
+                      .copyWith(fontSize: 55, fontWeight: FontWeight.bold),
+                ),
                 progressColor: ColorTheme.whiteColor,
               ),
             ),
@@ -85,19 +113,22 @@ class _HomeState extends State<Home> {
                 color: ColorTheme.whiteColor,
                 onPressed: () {
                   startTimer();
+                  setState(() {
+                    isTimerStarted = !isTimerStarted;
+                  });
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "START TIMERDO",
+                    isTimerStarted ? "STOP TIMERDO" : "START TIMERDO",
                     style: Theme.of(context).textTheme.bodyText2!.copyWith(
                         color: ColorTheme.buttonTextColor, fontSize: 20),
                   ),
                 ),
               ),
             ),
-            Spacer(),
-            Spacer()
+            const Spacer(),
+            const Spacer()
           ],
         ),
       ),
