@@ -5,6 +5,7 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:timer_app/apptheme/color_theme.dart';
 import 'package:timer_app/ui/settings.dart';
+import 'package:timer_app/ui/statisticts.dart';
 
 double _counter = 0;
 
@@ -18,10 +19,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   bool isStarted = false;
   final _stopWatchTimer = StopWatchTimer(
-    onChange: (value) {
-      final displayTime = StopWatchTimer.getDisplayTime(value);
-      print('displayTime $displayTime');
-    },
+    onChange: (value) {},
     onChangeRawSecond: (value) {
       _counter += 0.0007;
     },
@@ -68,7 +66,14 @@ class _HomeState extends State<Home> {
             ),
           ),
           actions: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.bar_chart))
+            IconButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const StatisticsView()));
+                },
+                icon: const Icon(Icons.bar_chart))
           ]),
       body: Center(
         child: Column(
@@ -77,7 +82,7 @@ class _HomeState extends State<Home> {
             const SizedBox(
               height: 50,
             ),
-            Text(
+            const Text(
               "STAY FOCUSED",
             ),
             const SizedBox(
@@ -97,12 +102,12 @@ class _HomeState extends State<Home> {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 20),
                         child: CircularPercentIndicator(
+                          backgroundWidth: 5,
                           radius: 120.0,
                           lineWidth: 5.0,
                           percent: _counter,
                           center: Text(
                             displayTime,
-                            // "$minutesHand:$_start",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyText2!
@@ -137,41 +142,6 @@ class _HomeState extends State<Home> {
                           ),
                         ),
                       ),
-                      // const Spacer(),
-                      // const Spacer()
-
-                      // Padding(
-                      //   padding: const EdgeInsets.all(8),
-                      //   child: Text(
-                      //     displayTime,
-                      //     style: TextStyle(
-                      //         fontSize: 40,
-                      //         fontFamily: 'Helvetica',
-                      //         fontWeight: FontWeight.bold),
-                      //   ),
-                      // ),
-                      // Padding(
-                      //   padding: const EdgeInsets.all(8),
-                      //   child: Text(
-                      //     value.toString(),
-                      //     style: TextStyle(
-                      //         fontSize: 16,
-                      //         fontFamily: 'Helvetica',
-                      //         fontWeight: FontWeight.w400),
-                      //   ),
-                      // ),
-                      // TextButton(
-                      //     onPressed: () {
-                      //       _stopWatchTimer.onExecute
-                      //           .add(StopWatchExecute.start);
-                      //     },
-                      //     child: Text("Start")),
-                      // TextButton(
-                      //     onPressed: () {
-                      //       _stopWatchTimer.onExecute
-                      //           .add(StopWatchExecute.stop);
-                      //     },
-                      //     child: Text("Stop")),
                     ],
                   ),
                 );

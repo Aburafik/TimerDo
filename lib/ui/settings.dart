@@ -109,7 +109,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
           Expanded(child: Container(
-            color: Color(0xffF63547),))
+            color: const Color(0xffF63547),))
         ],
       ),
     );

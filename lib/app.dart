@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:timer_app/apptheme/app_theme.dart';
 import 'package:timer_app/ui/splash_screen.dart';
-import 'package:stop_watch_timer/stop_watch_timer.dart'; // Import stop_watch_timer
+import 'package:stop_watch_timer/stop_watch_timer.dart'; 
+// Import stop_watch_timer
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
       ),
       darkTheme: darkTheme,
       themeMode: ThemeMode.dark,
-      home: SplashScreen(),
+      home:const SplashScreen(),
     );
   }
 }
@@ -72,7 +73,7 @@ class _CounterAppState extends State<CounterApp> {
                   padding: const EdgeInsets.all(8),
                   child: Text(
                     displayTime,
-                    style: TextStyle(
+                    style:const TextStyle(
                         fontSize: 40,
                         fontFamily: 'Helvetica',
                         fontWeight: FontWeight.bold),
@@ -82,7 +83,7 @@ class _CounterAppState extends State<CounterApp> {
                   padding: const EdgeInsets.all(8),
                   child: Text(
                     value.toString(),
-                    style: TextStyle(
+                    style:const TextStyle(
                         fontSize: 16,
                         fontFamily: 'Helvetica',
                         fontWeight: FontWeight.w400),
@@ -92,12 +93,12 @@ class _CounterAppState extends State<CounterApp> {
                     onPressed: () {
                       _stopWatchTimer.onExecute.add(StopWatchExecute.start);
                     },
-                    child: Text("Start")),
+                    child:const Text("Start")),
                 TextButton(
                     onPressed: () {
                       _stopWatchTimer.onExecute.add(StopWatchExecute.stop);
                     },
-                    child: Text("Stop")),
+                    child:const Text("Stop")),
               ],
             ),
           );
