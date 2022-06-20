@@ -1,31 +1,44 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:provider/provider.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:timer_app/apptheme/color_theme.dart';
+import 'package:timer_app/providers/timer_provider.dart';
 import 'package:timer_app/ui/settings.dart';
 import 'package:timer_app/ui/statisticts.dart';
 
 double _counter = 0;
+// int setTimer = 0;
+stopTimerOnTimeSet() {
+  StopWatchTimer().onExecute.add(StopWatchExecute.stop);
+}
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  int? timer;
+  Home({Key? key, this.timer}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
+  final getMinutes = StopWatchTimer.getDisplayTime(0,
+      second: false, hours: false, milliSecond: false);
   bool isStarted = false;
   final _stopWatchTimer = StopWatchTimer(
+    
     onChange: (value) {},
     onChangeRawSecond: (value) {
       _counter += 0.0007;
     },
-    onChangeRawMinute: (value) => print('onChangeRawMinute $value'),
-  );
+    onChangeRawMinute: (value) {
+      print("Time in Minutes is $value");
 
+      if (value == 1) {
+        print("Hello Ghana");
+      }
+    },
+  );
   @override
   void initState() {
     super.initState();
@@ -33,6 +46,7 @@ class _HomeState extends State<Home> {
 
   startTimer() {
     _stopWatchTimer.onExecute.add(StopWatchExecute.start);
+
     setState(() {
       isStarted = true;
     });
@@ -46,6 +60,11 @@ class _HomeState extends State<Home> {
     });
   }
 
+  getValue() {
+    int value = widget.timer!;
+    return value;
+  }
+
   @override
   void dispose() async {
     super.dispose();
@@ -54,6 +73,8 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    int _timer = Provider.of<Timer>(context).initiaTimer;
+
     return Scaffold(
       appBar: AppBar(
           leading: IconButton(
@@ -95,10 +116,12 @@ class _HomeState extends State<Home> {
                 final value = snap.data;
                 final displayTime = StopWatchTimer.getDisplayTime(value!,
                     hours: false, milliSecond: false);
+
                 return Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
+                      Text("for : $_timer minutes"),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 20),
                         child: CircularPercentIndicator(

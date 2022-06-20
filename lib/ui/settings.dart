@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:timer_app/apptheme/color_theme.dart';
+import 'package:timer_app/providers/timer_provider.dart';
 
 import '../resources/widgets/custome_timer_tile.dart';
 
@@ -13,12 +15,12 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   TextStyle settingsTextStyle =
       const TextStyle(fontSize: 16, color: Color.fromARGB(255, 225, 205, 205));
-
   bool isSwcitch = false;
   bool autoStartSwcitch = false;
 
   @override
   Widget build(BuildContext context) {
+    int _timer = Provider.of<Timer>(context).initiaTimer;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
@@ -36,25 +38,36 @@ class _SettingsScreenState extends State<SettingsScreen> {
           TimerTile(
             settingsTextStyle: settingsTextStyle,
             title: "Normal",
-            selectedTime: "25 min",
-            widget: const Icon(
-              Icons.arrow_forward_ios,
-              color: Colors.white,
-              size: 15,
+            selectedTime: "$_timer minutes",
+            inCreaeTimerWidgetwidget: GestureDetector(
+              onTap: Provider.of<Timer>(context, listen: true).setInCreasetimer,
+              child: const Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.white,
+                size: 15,
+              ),
+            ),
+            decrereesTimerWidget: GestureDetector(
+              onTap: Provider.of<Timer>(context, listen: true).setDecreasetimer,
+              child: const Icon(
+                Icons.arrow_back_ios,
+                color: Colors.white,
+                size: 15,
+              ),
             ),
           ),
           TimerTile(
             settingsTextStyle: settingsTextStyle,
             title: "Short Break",
             selectedTime: "5 min",
-            widget: const Icon(
+            inCreaeTimerWidgetwidget: const Icon(
               Icons.arrow_forward_ios,
               color: Colors.white,
               size: 15,
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 8, top: 15,bottom: 10),
+            padding: const EdgeInsets.only(left: 8, top: 15, bottom: 10),
             child: Text(
               "LONG BREAK",
               style: settingsTextStyle,
@@ -64,7 +77,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             settingsTextStyle: settingsTextStyle,
             title: "Long Break",
             // selectedTime: "5min",
-            widget: Switch(
+            inCreaeTimerWidgetwidget: Switch(
               activeColor: ColorTheme.switchActiveColor,
               value: isSwcitch,
               onChanged: (values) {
@@ -78,7 +91,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             settingsTextStyle: settingsTextStyle,
             title: "Long Break Length",
             selectedTime: "15min",
-            widget: const Icon(
+            inCreaeTimerWidgetwidget: const Icon(
               Icons.arrow_forward_ios,
               color: Colors.white,
               size: 15,
@@ -88,7 +101,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             settingsTextStyle: settingsTextStyle,
             title: "Long Break After",
             selectedTime: "5 working session",
-            widget: const Icon(
+            inCreaeTimerWidgetwidget: const Icon(
               Icons.arrow_forward_ios,
               color: Colors.white,
               size: 15,
@@ -98,7 +111,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             settingsTextStyle: settingsTextStyle,
             title: "Auto Start Break",
             // selectedTime: "5",
-            widget: Switch(
+            inCreaeTimerWidgetwidget: Switch(
               activeColor: ColorTheme.switchActiveColor,
               value: autoStartSwcitch,
               onChanged: (values) {
@@ -108,8 +121,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             ),
           ),
-          Expanded(child: Container(
-            color: const Color(0xffF63547),))
+          Expanded(
+              child: Container(
+            color: const Color(0xffF63547),
+          ))
         ],
       ),
     );

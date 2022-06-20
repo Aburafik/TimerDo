@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:timer_app/apptheme/app_theme.dart';
+import 'package:timer_app/providers/timer_provider.dart';
 import 'package:timer_app/ui/splash_screen.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart'; 
 // Import stop_watch_timer
@@ -8,15 +10,18 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return ChangeNotifierProvider(
+      create: (context) => Timer(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        darkTheme: darkTheme,
+        themeMode: ThemeMode.dark,
+        home:const SplashScreen(),
       ),
-      darkTheme: darkTheme,
-      themeMode: ThemeMode.dark,
-      home:const SplashScreen(),
     );
   }
 }

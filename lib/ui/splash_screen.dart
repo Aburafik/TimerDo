@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:timer_app/apptheme/color_theme.dart';
+import 'package:timer_app/providers/timer_provider.dart';
 import 'package:timer_app/ui/home.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -7,8 +9,9 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int setTimer = Provider.of<Timer>(context).initiaTimer;
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           gradient: LinearGradient(colors: [
         ColorTheme.primaryColor,
         ColorTheme.semiPrimaryColor,
@@ -39,7 +42,7 @@ class SplashScreen extends StatelessWidget {
                 ),
                 onTap: () {
                   Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => Home()));
+                      context, MaterialPageRoute(builder: (_) => Home(timer: setTimer,)));
                 },
               ),
             )

@@ -8,13 +8,15 @@ class TimerTile extends StatelessWidget {
     required this.settingsTextStyle,
     this.title,
     this.selectedTime,
-    this.widget,
+    this.inCreaeTimerWidgetwidget,
+    this.decrereesTimerWidget,
   }) : super(key: key);
 
   final TextStyle settingsTextStyle;
   final String? title;
   final String? selectedTime;
-  final Widget? widget;
+  final Widget? inCreaeTimerWidgetwidget;
+  final Widget? decrereesTimerWidget;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +31,7 @@ class TimerTile extends StatelessWidget {
           style: settingsTextStyle,
         ),
         trailing: Row(mainAxisSize: MainAxisSize.min, children: [
+          decrereesTimerWidget ?? const Text(""),
           Text(
             selectedTime ?? "",
             style: settingsTextStyle,
@@ -36,7 +39,7 @@ class TimerTile extends StatelessWidget {
           const SizedBox(
             width: 10,
           ),
-          widget!
+          inCreaeTimerWidgetwidget!
         ]),
       ),
     );
