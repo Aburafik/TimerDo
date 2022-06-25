@@ -18,6 +18,7 @@ class StatisticsView extends StatelessWidget {
             icon: const Icon(Icons.arrow_back_ios)),
         title: const Text("Statistics"),
       ),
+      body: const SafeArea(child: Center(child: Text("Raf"))),
     );
   }
 }
